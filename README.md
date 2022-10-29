@@ -7,7 +7,7 @@ mask in the second operand.
 The file [sag4fun.v](sag4fun.v) provides implementations for 32 and 64 bits:
 
 | Verilog Module | Description                                  |
-| -------------- | -------------------------------------------- |
+|:-------------- |:-------------------------------------------- |
 | SAG4Fun32C     | 32-Bit combinatorial logic                   |
 | SAG4Fun32S     | 32-Bit 5-step sequential core                |
 | SAG4Fun64C     | 64-Bit combinatorial logic                   |
@@ -41,7 +41,7 @@ reversed order.
 ## Variants without reversed order of "goat" bits
 
 A variant of the Sheep-And-Goats (SAG) instruction that does not reverse the
-order of the unmarked data bits in significantly harder to implement in hardware,
+order of the unmarked data bits is significantly harder to implement in hardware,
 and is thus best emulated using the following sequence of three instructions:
 
 ```
@@ -61,3 +61,37 @@ sag rd, rs2, rs2
 sag rd, rs1, rd
 isg rd, rd, rs2
 ```
+
+## Verilog Core Interface
+
+The combinatorial cores SAG4Fun32C and SAG4Fun64C have the following interface:
+
+| Port                      | Description                           |
+|:------------------------- |:------------------------------------- |
+| `input ctrl_inv`          | Set to 1 for ISG and DEP, 0 otherwise |
+| `input ctrl_msk`          | Set to 1 for EXT and DEP, 0 otherwise |
+| `input [N-1:0] in_data`   | The data operand (32 or 64 bits wide) |
+| `input [N-1:0] in_mask`   | The mask operand (32 or 64 bits wide) |
+| `output [N-1:0] out_data` | The result                            |
+
+The sequential cores have only one data input and provide a "load mask" mode
+for loading a new mask. Loading a mask requires the same number of cycles
+as processing a data word (5, 6, or 3 cycles for SAG4Fun32S, SAG4Fun64S,
+and SAG4Fun64F respectively).
+
+| Port                      | Description                               |
+|:------------------------- |:----------------------------------------- |
+| `input clock`             | The (positive edge) clock                 |
+| `input reset`             | The (high-active, synchronous) reset      |
+| `input ctrl_start`        | Start a new operation (abort current one) |
+| `output ctrl_ready`       | Signal that last operation finished       |
+| `input ctrl_inv`          | Set to 1 for ISG and DEP, 0 otherwise     |
+| `input ctrl_msk`          | Set to 1 for EXT and DEP, 0 otherwise     |
+| `input ctrl_ldm`          | Set to 1 for loading a new mask           |
+| `input [N-1:0] in_data`   | The data input (32 or 64 bits wide)       |
+| `output [N-1:0] out_data` | The result (valid when `ctrl_ready` is 1) |
+
+The control inputs `ctrl_inv` and `ctrl_msk` should be set to 0 in `ctrl_ldm`
+mode.
+
+![SAG4Fun Example Waveform](waveform.png)

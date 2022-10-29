@@ -1,5 +1,5 @@
 //
-// SAG4Fun
+// SAG4Fun - An Open Source Sheep-And-Goats (SAG) and Inverse SAG Verilog IP
 //
 // Copyright (C) 2022 Claire Wolf <claire@clairexen.net>
 //
