@@ -1,0 +1,44 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Sat Oct 29 16:01:56 2022
+[*]
+[dumpfile] "/home/claire/Work/handicraft-2022/sag4fun/testbench.vcd"
+[dumpfile_mtime] "Sat Oct 29 16:00:14 2022"
+[dumpfile_size] 52668
+[savefile] "/home/claire/Work/handicraft-2022/sag4fun/testbench.gtkw"
+[timestart] 0
+[size] 1111 625
+[pos] -1 -1
+*-5.847746 74 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench.
+[treeopen] testbench.uut.
+[sst_width] 233
+[signals_width] 324
+[sst_expanded] 1
+[sst_vpaned_height] 152
+@28
+testbench.clock
+testbench.reset
+testbench.error
+@200
+-
+@28
+testbench.ctrl_start
+testbench.ctrl_inv
+testbench.ctrl_ldm
+testbench.ctrl_msk
+@22
+testbench.in_data[63:0]
+@200
+-
+@28
+testbench.ctrl_ready
+@22
+testbench.out_data[63:0]
+@28
+testbench.test_sag_ok
+testbench.test_isg_ok
+@200
+-
+[pattern_trace] 1
+[pattern_trace] 0
